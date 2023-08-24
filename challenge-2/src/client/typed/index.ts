@@ -16,4 +16,5 @@ export type APICharacter = {
   gender: string;
   image: string;
   url: string;
+  removed?: boolean;
 };

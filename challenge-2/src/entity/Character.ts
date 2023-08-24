@@ -6,6 +6,7 @@ export default class Character {
   gender: string;
   image: string;
   url: string;
+  removed: boolean;
 
   constructor(
     id: number,
@@ -15,6 +16,7 @@ export default class Character {
     gender: string,
     image: string,
     url: string,
+    removed: boolean = false,
   ) {
     this.id = id;
     this.name = name;
@@ -23,5 +25,6 @@ export default class Character {
     this.gender = gender;
     this.image = image;
     this.url = url;
+    this.removed = removed;
   }
 }

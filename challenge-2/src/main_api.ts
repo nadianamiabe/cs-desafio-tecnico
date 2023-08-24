@@ -5,6 +5,7 @@ import HttpController from './http/HttpController';
 import HttpServerHapiAdapter from './http/HttpServerHapiAdapter';
 import RickAndMortyAPIClientGatewayImpl from './client/RickAndMortyAPIClientGatewayImpl';
 import HttpClientAxiosAdapter from './http/HttpClientAxiosAdapter';
+import GetOneCharacterUseCase from './usecase/GetOneCharacterUseCase';
 
 // main
 const repository = new InMemoryCharacterRepository();
@@ -14,8 +15,12 @@ const getAllCharactersUseCase = new GetAllCharactersUseCase(
   repository,
   rickAndMortyApiGateway,
 );
-// const httpServer = new HttpServerExpressAdapter()
+const getOneCharacterUseCase = new GetOneCharacterUseCase(
+  repository,
+  rickAndMortyApiGateway,
+);
+// const httpServer = new HttpServerExpressAdapter();
 const httpServer = new HttpServerHapiAdapter();
 
-new HttpController(httpServer, getAllCharactersUseCase);
+new HttpController(httpServer, getAllCharactersUseCase, getOneCharacterUseCase);
 httpServer.listen(3000);
