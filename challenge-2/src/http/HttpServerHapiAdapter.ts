@@ -12,6 +12,7 @@ export default class HttpServerHapiAdapter implements HttpServer {
     method: string,
     url: string,
     callback: Function,
+    statusCode = 200,
     parameter?: string,
   ): void {
     this.server.route({
@@ -19,8 +20,8 @@ export default class HttpServerHapiAdapter implements HttpServer {
       path: parameter ? `${url}/{${parameter}}` : url,
       handler: async (req: any, reply: any) => {
         try {
-          const ouput = await callback(req.params);
-          return ouput;
+          const ouput = await callback(req.params, req.payload);
+          return reply.response(ouput).code(statusCode);
         } catch (error: any) {
           return reply
             .response({
