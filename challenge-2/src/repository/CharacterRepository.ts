@@ -1,9 +1,9 @@
 import Character from '../entity/Character';
 
 export interface CharacterRepository {
-  create(character: Character): Character;
+  create(character: Character): Promise<Character>;
   update(character: Character): Promise<void>;
-  delete(id: string): Promise<void>;
-  findById(id: string): Promise<void>;
-  getAll(): Character[];
+  delete(character: Character): Promise<void>;
+  findById(id: number): Promise<Character>;
+  getAll(): Promise<Character[]>;
 }

@@ -4,24 +4,36 @@ import { CharacterRepository } from '../CharacterRepository';
 export class InMemoryCharacterRepository implements CharacterRepository {
   public items: Character[] = [];
 
-  create(character: Character): Character {
+  async create(character: Character): Promise<Character> {
     this.items.push(character);
     return character;
   }
 
   async update(character: Character): Promise<void> {
-    throw new Error('Method not implemented.');
+    const index = this.items.findIndex((item) => item.id === character.id);
+    if (index !== -1) {
+      this.items[index] = character;
+    }
   }
 
-  async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(character: Character): Promise<void> {
+    character.removed = true;
+    this.update(character);
   }
 
-  async findById(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async findById(id: number): Promise<Character> {
+    const character = this.items.find((character) => {
+      return character.id == id;
+    });
+
+    if (!character) {
+      throw new Error(`Personagem com ID ${id} não encontrado.`);
+    }
+
+    return character;
   }
 
-  getAll(): Character[] {
+  async getAll(): Promise<Character[]> {
     return this.items;
   }
 }
