@@ -1,4 +1,3 @@
-// interface adapter / framework and driver
 export default interface HttpServer {
   on(
     method: string,
